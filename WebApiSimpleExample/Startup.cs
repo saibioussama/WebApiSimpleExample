@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebApiSimpleExample.Data;
 
 namespace WebApiSimpleExample
 {
@@ -26,6 +28,10 @@ namespace WebApiSimpleExample
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddDbContext<MyDataContext>(options =>
+      {
+        options.UseInMemoryDatabase();
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
